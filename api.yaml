@@ -1,0 +1,281 @@
+openapi: 3.0.3
+info:
+  title: Restaurant management API
+  description: This provides an interface to interact with  the restaurant data.
+  version: '1.0'
+servers:
+  - url: http://localhost:3000
+    description: "This is the URL for the development server"
+paths:
+  /customers:
+    get:
+      summary: List all customers
+      description: Returns the list of customers
+      responses:
+        '200':
+          description: A list of Customers
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/customer"
+    post:
+      summary: Creates customer
+      description: Creates customer and returns the customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/customerCreateBody"
+      responses:
+        '201':
+          description: The customer that was created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/customer"
+
+  /customers/{customer}:
+    get:
+      parameters:
+        - in: path
+          name: customer
+          required: true
+          schema:
+            $ref: "#/components/schemas/customerParameter"
+          description: The customer ID.
+      responses:
+        '200':
+          description: A single customer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/customer"
+
+
+  /bookings:
+    get:
+      summary: List all bookings
+      description: Returns the list of bookings
+      responses:
+        '200':
+          description: A list of bookings
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/booking"
+    post:
+      summary: Creates booking
+      description: Creates customer and returns the booking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/customerBookingBody"
+      responses:
+        '201':
+          description: The booking that was created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/booking"
+
+  /booking/{booking}:
+    get:
+      parameters:
+        - in: path
+          name: booking
+          required: true
+          schema:
+            $ref: "#/components/schemas/bookingParameter"
+          description: The booking ID.
+      responses:
+        '200':
+          description: A single booking
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/booking"
+
+
+  /payments:
+    get:
+      summary: List all payments
+      description: Returns the list of payments
+      responses:
+        '200':
+          description: A list of payments
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/payment"
+    post:
+      summary: Creates payment
+      description: Creates customer and returns the payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/customerPaymentBody"
+      responses:
+        '201':
+          description: The payment that was created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/payment"
+
+  /payment/{payment}:
+    get:
+      parameters:
+        - in: path
+          name: payment
+          required: true
+          schema:
+            $ref: "#/components/schemas/paymentParameter"
+          description: The payment ID.
+      responses:
+        '200':
+          description: A single payment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/booking"
+
+  /vouchers:
+    get:
+      summary: List all vouchers
+      description: Returns the list of vouchers
+      responses:
+        '200':
+          description: A list of vouchers
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/voucher"
+    post:
+      summary: Creates voucher
+      description: Creates customer and returns the voucher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/customerVoucherBody"
+      responses:
+        '201':
+          description: The voucher that was created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/voucher"
+
+  /voucher/{voucher}:
+    get:
+      parameters:
+        - in: path
+          name: voucher
+          required: true
+          schema:
+            $ref: "#/components/schemas/voucherParameter"
+          description: The voucher ID.
+      responses:
+        '200':
+          description: A single voucher
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/voucher"
+
+
+#components/schema
+components:
+  schemas:
+    customer:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        phone_number:
+          type: number
+
+    customerCreateBody:
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone_number:
+          type: number
+
+    customerParameter:
+      properties:
+        customer:
+          type: string
+
+    booking:
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        paymentStatus:
+          type: string
+        cancellationStatus:
+          type: string
+
+
+    bookingBody:
+      properties:
+        customerId:
+          type: string
+        paymentStatus:
+          type: string
+        cancellationStatus:
+          type: string
+
+    payment:
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        refundable:
+          type: string
+
+    paymentBody:
+      properties:
+        customerId:
+          type: string
+        refundable:
+          type: string
+
+    voucher:
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        validTo:
+          type: string
+
+    voucherBody:
+      properties:
+        customerId:
+          type: string
+        validTo:
+          type: string
+
+
+
+
+
+
+
+
+
