@@ -8,6 +8,8 @@ type bodyProps = {
     hospitalityVisible: boolean
 }
 const Con =  styled.div`
+  overflow-x: hidden;
+  overflow-y: hidden;
    background-color: black;
    width: 100%;
   .top{
@@ -68,6 +70,40 @@ const Con =  styled.div`
         margin-bottom: 1rem;
       }
     }
+  }
+  
+  .jiggle{
+    position: relative;
+    animation-name: jiggle;
+    animation-delay: 0s;
+    animation-duration: 10s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    overflow-x: hidden;
+  }
+  @keyframes jiggle{
+    0%{
+      transform: rotate(5deg);
+    }
+    20%{
+      transform: rotate(-5deg);
+    }
+    40%{
+      transform: rotate(5deg);
+    }
+    60%{
+      transform: rotate(-5deg);
+    }
+    80%{
+      transform: rotate(2deg);
+    }
+    90%{
+      transform: rotate(-2deg);
+    }
+    100%{
+      transform: rotate(0);
+    }
+    
   }
   @media (min-width: 760px) {
     display: flex;
@@ -133,7 +169,7 @@ const Body = () =>{
 
     return(
         <Con hospitalityVisible = {hospitalityVisible}>
-          <div className="top">
+          <div className={`top ${ hospitalityVisible ? 'jiggle' : ''}`}>
               <Image className="promo" src="/images/discount2.png" alt="20% off discount" width="270" height="270"/>
               <Image className="promo" src="/images/discount1.png" alt="20% off discount" width="270" height="270"/>
               <div className="top-bottom">
