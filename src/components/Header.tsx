@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import {useEffect, useState} from "react";
 import {bool} from "prop-types";
+import {useContext} from "react";
+import {AppContext} from "@/pages";
 
 type headerStyleProps = {
     drop: bool,
@@ -113,6 +115,8 @@ const Header = ()=>{
 
     const [dropDown, dropDownChange] = useState(false);
     const [direction, setDirection] = useState('up');
+    const {formType, setFormType} = useContext(AppContext)
+    console.log(formType,setFormType)
 
     let oldScrollY = 0;
     const controlDirection = () => {
@@ -130,6 +134,11 @@ const Header = ()=>{
             window.removeEventListener('scroll', controlDirection);
         };
     },[]);
+
+    const showContactForm = () =>{
+        setFormType('contact')
+    }
+
     return (
         <Con drop={dropDown} scrollY={direction}>
             <div className="main">
@@ -138,7 +147,7 @@ const Header = ()=>{
                 <ul>
                     <li>FOOD & DRINKS</li>
                     <li>PRICING</li>
-                    <li>CONTACT</li>
+                    <li onClick={showContactForm}>CONTACT</li>
                     <li>VOUCHERS</li>
                 </ul>
             </div>
