@@ -12,6 +12,8 @@ const Con =  styled.div`
     flex-flow: wrap;
     justify-content: center;
     align-items: center;
+    z-index: 2;
+    position: relative;
       div {
         width: 90%;
         max-width: 450px;

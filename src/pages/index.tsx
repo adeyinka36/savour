@@ -6,6 +6,9 @@ import Prices from "@/components/Prices";
 import Form from "@/components/Form";
 import {createContext, useState} from "react";
 import Header from "@/components/Header";
+import FoodAndDrinkMenu from "@/components/FoodAndDrinkMenu";
+import Footer from "@/components/Footer";
+import Notification from "@/components/Notification";
 
 export const AppContext =  createContext({});
 
@@ -36,6 +39,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
     const [formType, setFormType] = useState('none')
+    const [message, setMessage] = useState('')
     let fields;
     if(formType === 'none'){
         fields = []
@@ -49,14 +53,18 @@ export default function Home() {
         <meta name="description" content="Worlds best food and drink buffet" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Main/>
-      <AppContext.Provider value={{formType, setFormType}}>
+
+      <AppContext.Provider value={{formType, setFormType, message, setMessage}}>
      <Header/>
       <div id="notification"></div>
       <div id="form-portal"></div>
+      <Main/>
       <Body/>
       <Prices/>
+      <FoodAndDrinkMenu/>
+      <Footer/>
         <Form fields={fields}/>
+        <Notification message={message} />
       </AppContext.Provider>
     </>
   )

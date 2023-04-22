@@ -116,7 +116,6 @@ const Header = ()=>{
     const [dropDown, dropDownChange] = useState(false);
     const [direction, setDirection] = useState('up');
     const {formType, setFormType} = useContext(AppContext)
-    console.log(formType,setFormType)
 
     let oldScrollY = 0;
     const controlDirection = () => {

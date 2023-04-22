@@ -8,6 +8,8 @@ type bodyProps = {
     hospitalityVisible: boolean
 }
 const Con =  styled.div`
+  z-index: 2;
+  position: relative;
   overflow-x: hidden;
   overflow-y: hidden;
    background-color: black;

@@ -95,7 +95,7 @@ const Form: ({onSubmit, fields}: FormProps) => void = ({ onSubmit, fields }) => 
     const [mount, setMount] = useState(fields.length>1);
     const [submitted, setSubmissionState] = useState(false)
 
-    const {setFormType, formType} = useContext(AppContext)
+    const {setFormType, formType, setMessage} = useContext(AppContext)
 
     useEffect(()=>{
         setMount(fields.length>1)
@@ -111,7 +111,10 @@ const Form: ({onSubmit, fields}: FormProps) => void = ({ onSubmit, fields }) => 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onSubmit(formData);
+        setFormType('none')
+        setMessage('Message submitted')
+
+
     };
 
     const close =()=>{

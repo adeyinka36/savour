@@ -4,6 +4,8 @@ import ReservationForm from "@/components/ReservationForm";
 
 
 const Con = styled.div`
+  z-index: 2;
+  position: relative;
   .main{
     position: relative;
     height: 100%;
@@ -66,7 +68,6 @@ const Main = ()=>{
             <div className="main">
                 <ReservationForm className="form"/>
             </div>
-
         </Con>
     )
 }

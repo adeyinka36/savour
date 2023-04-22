@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import {useContext} from "react";
+import {AppContext} from "@/pages";
 
+type styleProps = {
+    error: boolean
+}
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
@@ -40,7 +45,7 @@ const Input = styled.input`
   padding: 10px;
   font-size: 16px;
   margin-bottom: 10px;
-  color: white;
+  color: ${(props: styleProps)=> props.error ? 'red' : 'white'};
   text-align: center;
   margin-left: .5rem;
   margin-right: .5rem;
@@ -101,10 +106,17 @@ const Button = styled.button`
 function ReservationForm() {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [numberOfPeople, setNumberOfPeople] = useState<number>(2);
+    const [error, setError] = useState(false)
     const people = [2,3,4,5,6,7,8];
+
+    const {message, setFormType, setMessage} = useContext(AppContext)
 
     const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedDate(new Date(e.target.value));
+        if(e.target.value){
+            setError(false)
+            return
+        }
     };
 
     const handleNumberOfPeopleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -113,13 +125,18 @@ function ReservationForm() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(`Reservation for ${numberOfPeople} people on ${selectedDate}`);
+        if(!selectedDate){
+            setError(true)
+            return
+        }
+        setFormType('none')
+        setMessage('Message submitted')
     };
 
     return (
         <FormContainer onSubmit={handleSubmit}>
             <InputContainer>
-                <Input type="datetime-local" id="datetime" onChange={handleDateChange}/>
+                <Input type="datetime-local" id="datetime" onChange={handleDateChange} error={error}/>
             </InputContainer>
 
             <InputContainer>
