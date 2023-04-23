@@ -54,6 +54,9 @@ const Input = styled.input`
   justify-content: center;
   align-items: center;
   background-color: rgba(0,0,0,0);
+  &::-webkit-datetime-edit-day-field, &::-webkit-datetime-edit-month-field, &::-webkit-datetime-edit-year-field{ 
+    text-transform: uppercase;
+  }
   &:after {
     content:"📅";
     font-weight: 900;
@@ -62,8 +65,8 @@ const Input = styled.input`
     position: relative;
     right: 1rem;
     pointer-events: none;
-    
   }
+  
 `;
 
 const Select = styled.select`
