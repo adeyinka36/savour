@@ -62,14 +62,19 @@ const Con =  styled.div`
         color: wheat;
         letter-spacing: .5rem;
       }
+      &:hover{
+        cursor: pointer;
+      }
     }
     .top-bottom{
       p, h2{
         color: wheat;
         text-align: center;
+        padding: .5rem;
       }
       h2{
         margin-bottom: 1rem;
+        padding: .5rem;
       }
     }
   }
@@ -158,6 +163,7 @@ const Body = React.forwardRef((props, ref) =>{
     let  hospitality: RefObject<any> = useRef()
 
     const [hospitalityVisible, setHospitalityVisibility] = useState(false)
+    const [showCode, setShowCode] = useState(false)
 
     useEffect(()=>{
         const observer = new IntersectionObserver(entries=>{
@@ -174,17 +180,18 @@ const Body = React.forwardRef((props, ref) =>{
               <Image className="promo" src="/images/discount1.png" alt="20% off discount" width="270" height="270"/>
               <div className="top-bottom">
                   <h2>GET YOUR 10% DISCOUNT NOW</h2>
-                  <p>Get 10% off the food bill for up to 4 people with a valid Blue Light or Defence card; Monday – Thursday ONLY. This is available at all our Sakku sites. Please see full terms and conditions at bottom of page.</p>
+                  <p>Get 10% off the food bill for up to 4 people with a valid Blue Light or Defence card; Monday – Thursday ONLY. This is available at all our Savour sites. Please see full terms and conditions at bottom of page.</p>
               </div>
           </div>
           <div ref={hospitality} className="bottom">
-              <div  className="hospitality">
-                  <h2>HOSPITALITY</h2>
-                  <h2>DISCOUNT</h2>
+              <div  className="hospitality" onClick={()=>setShowCode(true)}>
+                  { !showCode ? <h2>CLICK HERE TO REVEAL CODE</h2> :<h2>EX075HSIUFB</h2> }
               </div>
               <div className="top-bottom">
-                  <h2>GET YOUR 10% DISCOUNT NOW</h2>
-                  <p>Get 10% off the food bill for up to 4 people with a valid Blue Light or Defence card; Monday – Thursday ONLY. This is available at all our Sakku sites. Please see full terms and conditions at bottom of page.</p>
+                  <h2>CLICK THE BOX ABOVE FOR DISCOUNT CODE</h2>
+                  <p>
+                      We are thrilled to announce an exciting new discount at our restaurant! For a limited time, we are offering 20% off all menu items for customers who dine in between Monday and Thursday. This discount applies to both lunch and dinner, and includes all of our delicious appetizers, entrees, and desserts. Whether you're in the mood for a juicy burger or a fresh salad, you can enjoy your meal at a great value. We hope this discount encourages customers to visit us during the week and try out some of our signature dishes. Come on in and enjoy a delicious meal at an unbeatable price!
+                  </p>
               </div>
           </div>
         </Con>

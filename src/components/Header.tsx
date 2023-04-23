@@ -36,6 +36,10 @@ const Con  = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+    &:hover{
+      cursor: pointer;
+    }
+  
   }
 
   @keyframes switchOpacity {
@@ -158,7 +162,7 @@ const Header = (props: props)=>{
         <Con drop={dropDown} scrollY={direction}>
             <div className="main">
                     <FontAwesomeIcon icon={faBars} className="bars" onClick={()=> dropDownChange(!dropDown)}/>
-                    <h2>SAVOUR<Image src="/images/spin.png" alt="logo name and images" width="40" height="40"/></h2>
+                    <h2 onClick={()=>props.scroll('main')}>SAVOUR<Image src="/images/spin.png" alt="logo name and images" width="40" height="40"/></h2>
                 <ul>
                     <li onClick={()=>props.scroll('foodAndDrinks')}>FOOD & DRINKS</li>
                     <li onClick={()=>props.scroll('pricing')}>PRICING</li>

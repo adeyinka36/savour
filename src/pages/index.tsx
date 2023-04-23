@@ -46,6 +46,7 @@ export default function Home() {
     const vouchers: RefObject<any> = useRef()
     const foodAndDrinks: RefObject<any> = useRef()
     const pricing: RefObject<any> = useRef()
+    const main: RefObject<any> = useRef()
 
     let fields;
     if(formType === 'none'){
@@ -64,6 +65,9 @@ export default function Home() {
             case 'vouchers':
                 vouchers.current.scrollIntoView()
                 break;
+            case 'main':
+                main.current.scrollIntoView()
+                break;
         }
     };
   return (
@@ -78,7 +82,7 @@ export default function Home() {
      <Header scroll={scroll}/>
       <div id="notification"></div>
       <div id="form-portal"></div>
-      <Main />
+      <Main ref={main}/>
       <Body ref={vouchers}/>
       <Prices ref={pricing}/>
       <FoodAndDrinkMenu ref={foodAndDrinks}/>

@@ -53,7 +53,7 @@ const Notification =  () => {
 
     return  message.length ? createPortal(
         <Con>
-            <Image src="/images/tick.png" alt="success sign" width="250" height="250" />
+            <Image src="/images/spin.png" alt="success sign" width="250" height="250" />
             <p>{message}</p>
             <button onClick={close}>Close</button>
         </Con>,

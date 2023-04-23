@@ -1,5 +1,5 @@
 import styled from  'styled-components'
-import {useState} from "react";
+import React, {useState} from "react";
 import ReservationForm from "@/components/ReservationForm";
 
 
@@ -59,17 +59,17 @@ const Con = styled.div`
   
 `
 
-const Main = ()=>{
+const Main = React.forwardRef(( props,ref)=>{
     const [selected, setDate] = useState(new Date());
 
 
     return (
         <Con>
-            <div className="main">
+            <div className="main" ref={ref}>
                 <ReservationForm className="form"/>
             </div>
         </Con>
     )
-}
+})
 
 export default Main
