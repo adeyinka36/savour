@@ -35,7 +35,7 @@ const MenuItem = styled.p`
   font-size: 1.2rem;
 `;
 
-const FoodAndDrinkMenu: React.FC = () => {
+const FoodAndDrinkMenu: React.FC = React.forwardRef((props, ref) => {
     const menuItems = [
         "Hamburger",
         "Pizza",
@@ -62,13 +62,13 @@ const FoodAndDrinkMenu: React.FC = () => {
     return (
         <Container>
         <MenuWrapper>
-            <h1>Food and Drink Menu</h1>
+            <h1 ref={ref}>Food and Drink Menu</h1>
             {menuItems.map((item) => (
                 <MenuItem key={item}>{item}</MenuItem>
             ))}
         </MenuWrapper>
         </Container>
     );
-};
+});
 
 export default FoodAndDrinkMenu;

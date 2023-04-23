@@ -154,10 +154,8 @@ const Con =  styled.div`
 interface RefObject<T> {
     readonly current: T | null
 }
-const Body = () =>{
+const Body = React.forwardRef((props, ref) =>{
     let  hospitality: RefObject<any> = useRef()
-    let  top: RefObject<any> = useRef()
-    let  bottom: RefObject<any> = useRef()
 
     const [hospitalityVisible, setHospitalityVisibility] = useState(false)
 
@@ -171,7 +169,7 @@ const Body = () =>{
 
     return(
         <Con hospitalityVisible = {hospitalityVisible}>
-          <div className={`top ${ hospitalityVisible ? 'jiggle' : ''}`}>
+          <div className={`top ${ hospitalityVisible ? 'jiggle' : ''}`} ref={ref}>
               <Image className="promo" src="/images/discount2.png" alt="20% off discount" width="270" height="270"/>
               <Image className="promo" src="/images/discount1.png" alt="20% off discount" width="270" height="270"/>
               <div className="top-bottom">
@@ -191,7 +189,7 @@ const Body = () =>{
           </div>
         </Con>
     )
-}
+})
 
 
 export default Body;

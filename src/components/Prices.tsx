@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {booleanLiteral} from "@babel/types";
 
 type pricesProps = {
@@ -65,7 +65,7 @@ const Con =  styled.div`
 interface RefObject<T> {
     readonly current: T | null
 }
-const Prices = ()=>{
+const Prices = React.forwardRef((props, ref)=>{
     let  top: RefObject<any> = useRef()
     let  bottom: RefObject<any> = useRef()
 
@@ -95,7 +95,7 @@ const Prices = ()=>{
                 <span>
                     LUNCH
                 </span>
-                <div>
+                <div  ref={ref}>
                     <p>Monday: £20</p>
                     <p>Tuesday: £20</p>
                     <p>Wednesday: £20</p>
@@ -121,6 +121,6 @@ const Prices = ()=>{
             </div>
         </Con>
     )
-}
+})
 
 export default Prices;

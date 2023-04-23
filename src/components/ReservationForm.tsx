@@ -130,7 +130,7 @@ function ReservationForm() {
             return
         }
         setFormType('none')
-        setMessage('Message submitted')
+        setMessage('Reservation made')
     };
 
     return (

@@ -1,4 +1,4 @@
-import React, {useState, ReactDOM, useEffect} from "react";
+import React, {useState, ReactDOM, useEffect, ChangeEventHandler} from "react";
 import styled from "styled-components";
 import {createPortal} from "react-dom";
 import {useContext} from "react";
@@ -30,6 +30,11 @@ const Container = styled.div`
   background-color: rgba(0,0,0,.9);
   justify-content: center;
   align-items: center;
+  p{
+    margin: 1rem;
+    color: red;
+    text-align: center;
+  }
 `
 const FormContainer = styled.form`
   background-color: rgba(0,0,0,0);
@@ -80,7 +85,7 @@ const SubmitButton = styled.button`
   cursor: pointer;
 `;
 
-const Cancel = styled.button`
+const Cancel = styled.span`
   padding: 10px 20px;
   font-size: 16px;
   background-color: #ffffff;
@@ -88,21 +93,25 @@ const Cancel = styled.button`
   margin-top: 1rem;
   border-radius: 5px;
   cursor: pointer;
+  color: black;
+  &:hover{
+    background-color: wheat;
+  }
 `
 
 const Form: ({onSubmit, fields}: FormProps) => void = ({ onSubmit, fields }) => {
     const [formData, setFormData] = useState<FormData>({});
     const [mount, setMount] = useState(fields.length>1);
-    const [submitted, setSubmissionState] = useState(false)
+    const [fieldsValid, setFieldsValidity] = useState<boolean|null>(null)
 
-    const {setFormType, formType, setMessage} = useContext(AppContext)
+    const {setFormType, setMessage} = useContext(AppContext)
 
     useEffect(()=>{
         setMount(fields.length>1)
     },[fields])
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement> | ChangeEventHandler<HTMLTextAreaElement>) => {
+        const { name, value } = event?.target;
         setFormData((prevState) => ({
             ...prevState,
             [name]: value,
@@ -111,23 +120,33 @@ const Form: ({onSubmit, fields}: FormProps) => void = ({ onSubmit, fields }) => 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if(!(Object.keys(formData).length >= 4)){
+            setFieldsValidity(false)
+            return
+        }
+        for (let formDataKey in formData) {
+            if(!formData[formDataKey]){
+                console.log(formData)
+                setFieldsValidity(false)
+                return
+            }
+        }
+        setFieldsValidity(true)
         setFormType('none')
+        setFormData({})
         setMessage('Message submitted')
-
 
     };
 
     const close =()=>{
-        if(formType === 'none'){
-            setFormType('contact')
-        }else{
-            setFormType('none')
-        }
+        setFormType('none')
+        setMessage('')
     }
 
     return mount ? createPortal(
         <Container className="container">
         <FormContainer onSubmit={handleSubmit}>
+            { fieldsValid === false ? <p> Please complete all fields</p> : null }
             {fields.map((field) => {
                   return  (
                         <FieldContainer key={field.name}>
@@ -141,6 +160,8 @@ const Form: ({onSubmit, fields}: FormProps) => void = ({ onSubmit, fields }) => 
                             /> : <TextArea
                                 name={field.name}
                                 id={field.name}
+                                value={formData[field.name] || ""}
+                                onChange={handleChange}
                             />}
                         </FieldContainer>
                     )

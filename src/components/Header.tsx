@@ -5,6 +5,8 @@ import {useEffect, useState} from "react";
 import {bool} from "prop-types";
 import {useContext} from "react";
 import {AppContext} from "@/pages";
+import Link from "next/link";
+import Image from "next/image";
 
 type headerStyleProps = {
     drop: bool,
@@ -30,6 +32,10 @@ const Con  = styled.div`
     animation: switchOpacity  3s ease-in forwards infinite alternate;
     color: yellow;
     letter-spacing: .25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
   }
 
   @keyframes switchOpacity {
@@ -49,7 +55,7 @@ const Con  = styled.div`
       padding-left: 1rem;
       display: inline-block;
       color: yellow;
-      font-size: 3rem;
+      font-size: 2rem;
       &:hover{
         cursor: pointer;
         color: darkcyan;
@@ -85,14 +91,20 @@ const Con  = styled.div`
       }
     }
   }
- 
+  @media (min-width: 301px){
+    h2{
+      font-size: 2.5rem;
+    }
+  }
   @media (min-width: 768px) {
+    
     justify-content: space-between;
     align-items: center;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     .bars{
       display: none;
+      font-size: 3rem;
     }
     ul{
       flex-direction: row;
@@ -110,8 +122,11 @@ const Con  = styled.div`
     }
 `
 
+type props = {
+    scroll: (location: string) => void
+}
 
-const Header = ()=>{
+const Header = (props: props)=>{
 
     const [dropDown, dropDownChange] = useState(false);
     const [direction, setDirection] = useState('up');
@@ -138,16 +153,17 @@ const Header = ()=>{
         setFormType('contact')
     }
 
+
     return (
         <Con drop={dropDown} scrollY={direction}>
             <div className="main">
                     <FontAwesomeIcon icon={faBars} className="bars" onClick={()=> dropDownChange(!dropDown)}/>
-                    <h2>SAVOUR</h2>
+                    <h2>SAVOUR<Image src="/images/spin.png" alt="logo name and images" width="40" height="40"/></h2>
                 <ul>
-                    <li>FOOD & DRINKS</li>
-                    <li>PRICING</li>
+                    <li onClick={()=>props.scroll('foodAndDrinks')}>FOOD & DRINKS</li>
+                    <li onClick={()=>props.scroll('pricing')}>PRICING</li>
                     <li onClick={showContactForm}>CONTACT</li>
-                    <li>VOUCHERS</li>
+                    <li onClick={()=>props.scroll('vouchers')}>VOUCHERS</li>
                 </ul>
             </div>
         </Con>

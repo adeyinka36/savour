@@ -4,7 +4,7 @@ import Main from "@/components/Main";
 import Body from "@/components/Body";
 import Prices from "@/components/Prices";
 import Form from "@/components/Form";
-import {createContext, useState} from "react";
+import {createContext, useRef, useState} from "react";
 import Header from "@/components/Header";
 import FoodAndDrinkMenu from "@/components/FoodAndDrinkMenu";
 import Footer from "@/components/Footer";
@@ -36,16 +36,36 @@ const contactFields = [
 
 ];
 const inter = Inter({ subsets: ['latin'] })
-
+interface RefObject<T> {
+    readonly current: T | null
+}
 export default function Home() {
     const [formType, setFormType] = useState('none')
     const [message, setMessage] = useState('')
+
+    const vouchers: RefObject<any> = useRef()
+    const foodAndDrinks: RefObject<any> = useRef()
+    const pricing: RefObject<any> = useRef()
+
     let fields;
     if(formType === 'none'){
         fields = []
     }else if(formType === 'contact'){
         fields = contactFields
     }
+    const scroll = (location) => {
+        switch (location){
+            case 'foodAndDrinks':
+                foodAndDrinks.current.scrollIntoView()
+                break;
+            case 'pricing':
+                pricing.current.scrollIntoView()
+                break;
+            case 'vouchers':
+                vouchers.current.scrollIntoView()
+                break;
+        }
+    };
   return (
     <>
       <Head>
@@ -55,16 +75,16 @@ export default function Home() {
       </Head>
 
       <AppContext.Provider value={{formType, setFormType, message, setMessage}}>
-     <Header/>
+     <Header scroll={scroll}/>
       <div id="notification"></div>
       <div id="form-portal"></div>
-      <Main/>
-      <Body/>
-      <Prices/>
-      <FoodAndDrinkMenu/>
+      <Main />
+      <Body ref={vouchers}/>
+      <Prices ref={pricing}/>
+      <FoodAndDrinkMenu ref={foodAndDrinks}/>
       <Footer/>
         <Form fields={fields}/>
-        <Notification message={message} />
+        <Notification />
       </AppContext.Provider>
     </>
   )

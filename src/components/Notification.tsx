@@ -5,13 +5,10 @@ import Image from "next/image";
 import {useContext} from "react";
 import {AppContext} from "@/pages";
 
-type props = {
-    message: string
-}
 
 const Con  = styled.div`
   z-index: 9999;
-  padding: 3rem;
+  padding: 1rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -27,6 +24,7 @@ const Con  = styled.div`
     color: white;
     letter-spacing: .25rem;
     background-color: rgba(0,0,0,0);
+    text-align: center;
   }
   button{
     padding: 10px 20px;
@@ -41,9 +39,9 @@ const Con  = styled.div`
 `
 
 
-const Notification =  (props: props) => {
+const Notification =  () => {
 
-    let   {message, setMessage, setFormType} = useContext(AppContext)
+    const   {message, setMessage, setFormType} = useContext(AppContext)
 
     const close = ()=>{
      setMessage('')
